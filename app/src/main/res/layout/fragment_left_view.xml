@@ -2,16 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.blogspot.mowael.zgo.fragments.LeftViewFragment">
 
-
-    <TextView
+    <RelativeLayout
+        android:id="@+id/rlOrganizer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/hello_blank_fragment"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/profile_avatar_placeholder_large" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlOrganizer"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:text="Search History"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvHistory" />
 
 </RelativeLayout>

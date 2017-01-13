@@ -1,14 +1,23 @@
 package com.blogspot.mowael.zgo.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.blogspot.mowael.zgo.R;
+import com.blogspot.mowael.zgo.adapter.RVHistoryAdapter;
+import com.blogspot.mowael.zgo.utilities.Constants;
+import com.blogspot.mowael.zgo.utilities.DatabaseHelper;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,9 +39,15 @@ public class LeftViewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    RVHistoryAdapter historyAdapter;
+    private SharedPreferences prefs;
+
     public LeftViewFragment() {
         // Required empty public constructor
     }
+
+    private ImageView ivProfilePic;
+    private RecyclerView rvHistory;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,12 +80,26 @@ public class LeftViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_left_view, container, false);
-
+        prefs = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onResume() {
+        super.onResume();
+        ivProfilePic = (ImageView) getActivity().findViewById(R.id.ivProfilePic);
+        String imageUri = prefs.getString(Constants.IMAGE_URI, "");
+        if (!imageUri.isEmpty()) {
+            ivProfilePic.setImageURI(Uri.parse(imageUri));
+        }
+        rvHistory = (RecyclerView) getActivity().findViewById(R.id.rvHistory);
+        rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
+        DatabaseHelper helper = DatabaseHelper.newInstance(getContext());
+        historyAdapter = new RVHistoryAdapter(getContext(), helper.getAllMeasureData());
+        rvHistory.setAdapter(historyAdapter);
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

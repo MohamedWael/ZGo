@@ -20,4 +20,13 @@ public interface Constants {
     String IMAGE_URI = "profilePicPath";
 
 
+    String GOOGLE_MAPS_API = "https://maps.googleapis.com/maps/api/directions/json";
+    String ORIGIN = "?origin=";
+    String DESTINATION = "&destination=";
+    String SENSOR = "&sensor=";
+    String KEY = "&key=";
+    String DEPARTURE_TIME = "&departure_time=";
+    String TRAFFIC_MODE = "&traffic_model=best_guess";
+    String WAY_POINT = "&waypoints=optimize:true|Providence";
+
 }

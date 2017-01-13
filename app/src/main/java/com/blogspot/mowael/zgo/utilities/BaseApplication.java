@@ -1,6 +1,5 @@
 package com.blogspot.mowael.zgo.utilities;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
 /**
@@ -11,5 +10,8 @@ public class BaseApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        DatabaseHelper databaseHelper = DatabaseHelper.newInstance(this);
+        VolleySingleton volley = VolleySingleton.getInstance(this);
+        volley.getRequestQueue().start();
     }
 }

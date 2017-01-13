@@ -64,9 +64,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.btnRegister:
-                userName = etUserName.getText().toString();
-                email = etMail.getText().toString();
-                password = etPassword.getText().toString();
+                userName = etUserName.getText().toString().trim();
+                email = etMail.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
                 if (!userName.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
                     if (email.matches(Constants.REGEX_Mail)) {
                         if (userName.length() < 6 || password.length() < 6) {
@@ -75,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             tvNotifier.setText("User name and password must be > 6 characters");
 
                         } else {
-                            storeRegisterInfo(userName, email, password, imageUri.toString());
+                            storeRegisterInfo(userName, email, password, imageUri != null ? imageUri.toString() : "");
                             signInFragment.setRegisterListener(new SignInFragment.OnRegisterListener() {
                                 @Override
                                 public void onRegister(FragmentActivity activity) {

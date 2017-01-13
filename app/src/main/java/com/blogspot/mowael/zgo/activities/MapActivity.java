@@ -1,5 +1,6 @@
 package com.blogspot.mowael.zgo.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     private FrameLayout flMapView;
     private LeftViewFragment leftViewFragment;
     private MapFragment mapFragment;
+    private MapFragmentResult mapFragmentResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,12 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         leftViewFragment = LeftViewFragment.newInstance("", "");
         getSupportFragmentManager().beginTransaction().replace(R.id.flLeftView, leftViewFragment).commit();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mapFragmentResult.onMapFragmentResult(requestCode,resultCode,data);
     }
 
 
@@ -50,6 +58,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
         mapFragment = MapFragment.newInstance("", "");
         getSupportFragmentManager().beginTransaction().replace(R.id.flMapView, mapFragment).commit();
+        mapFragmentResult = mapFragment;
 
     }
 
@@ -60,5 +69,9 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                 drawer.openDrawer(GravityCompat.START, true);
                 break;
         }
+    }
+
+    public interface MapFragmentResult {
+        void onMapFragmentResult(int requestCode, int resultCode, Intent data);
     }
 }

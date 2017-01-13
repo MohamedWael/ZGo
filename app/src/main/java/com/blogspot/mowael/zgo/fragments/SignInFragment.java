@@ -166,8 +166,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSignIn:
-                userName = etUserName.getText().toString();
-                password = etPassword.getText().toString();
+                userName = etUserName.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
                 if (!userName.equals("") && !password.equals("")) {
                     String storedUserName = prefs.getString(Constants.USER_NAME, "");
                     String storedPassword = prefs.getString(Constants.PASSWORD, "");
